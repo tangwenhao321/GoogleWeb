@@ -261,3 +261,17 @@ Disallow: /
 | P2 | 建立多域名/多支付/异地备份的抗风险架构 | 3.1 / 3.3 |
 | P3 | 首屏轮播 A/B 测试、结账支付方式扩展、弹窗策略优化 | 4.1 / 4.2 |
 | 持续 | 内容发布节奏与质量管控，避免规模化内容滥用信号 | 2.2 |
+
+---
+
+## 附：可直接落地部署的修复代码与脚本
+
+上表中标注为可自动化的技术项（安全加固、内容拼写批量修复、Cloudflare 性能配置等）已经
+写成可直接部署的代码/脚本，见 [`../wordpress-fixes/`](../wordpress-fixes/DEPLOY.md) 目录：
+
+- `wordpress-fixes/mu-plugins/au-iget-security-hardening.php` — 对应第 3.2 节的安全加固（安全响应头、禁用 XML-RPC、阻止用户枚举、禁用文件编辑、隐藏 WP 版本号）。
+- `wordpress-fixes/wp-cli/fix-content-typos.php` — 对应第 2.2 节的内容拼写批量核查修复（默认 dry-run，人工复核后再执行）。
+- `wordpress-fixes/apache/htaccess-additions.conf` — 服务器层的安全头/XML-RPC 拦截备用方案。
+- `wordpress-fixes/cloudflare/apply-cloudflare-optimizations.sh` — 对应第 1.4 节的 Brotli/Auto Minify/静态资源缓存自动化配置（需要 Cloudflare API Token）。
+- `wordpress-fixes/MANUAL-STEPS.md` — 无法脚本化、必须人工在 SiteGround/Cloudflare/Woodmart 面板操作的事项清单，按优先级排序。
+- `wordpress-fixes/DEPLOY.md` — 完整部署说明，包含需要哪些访问凭证（SSH/Cloudflare API Token）才能把改动真正落地到线上站点。
